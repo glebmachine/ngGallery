@@ -1,0 +1,27 @@
+{ 
+  "name" : "ng-gallery",
+  "version": "0.0.1",
+  "main" : "src/js/ngGallery.js",
+  "homepage": "https://github.com/jkuri/ngGallery",
+  "authors": [
+    "Jan Kuri <jkuri88@gmail.com>"
+  ],
+  "keywords": [
+    "AngularJS",
+    "Photo",
+    "Image",
+    "Gallery",
+    "Directive"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests",
+    "index.html",
+    "images"
+  ],
+  "description": "AngularJS Photo Gallery Directive"
+}
