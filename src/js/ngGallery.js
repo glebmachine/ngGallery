@@ -6,7 +6,7 @@
     ngGallery.$inject = ['$document', '$timeout', '$q', '$templateCache'];
 
     function ngGallery($document, $timeout, $q, $templateCache) {
-
+        
         var defaults = {
             baseClass: 'ng-gallery',
             thumbClass: 'ng-thumb',
@@ -29,27 +29,19 @@
         var template_url = defaults.templateUrl;
         // Set the default template
         $templateCache.put(template_url,
-            '<div class="{{ baseClass }}">' +
-            '  <div ng-repeat="i in images">' +
-            '    <img ng-src="{{ i.thumb }}" class="{{ thumbClass }}" ng-click="openGallery($index)" alt="Image {{ $index + 1 }}" />' +
-            '  </div>' +
-            '</div>' +
             '<div class="ng-overlay" ng-show="opened">' +
             '</div>' +
             '<div class="ng-gallery-content" unselectable="on" ng-show="opened" ng-swipe-left="nextImage()" ng-swipe-right="prevImage()">' +
             '  <div class="uil-ring-css" ng-show="loading"><div></div></div>' +
-            '<a href="{{getImageDownloadSrc()}}" target="_blank" ng-show="showImageDownloadButton()" class="download-image"><i class="fa fa-download"></i></a>' +
-            '  <a class="close-popup" ng-click="closeGallery()"><i class="fa fa-close"></i></a>' +
-            '  <a class="nav-left" ng-click="prevImage()"><i class="fa fa-angle-left"></i></a>' +
-            '  <img ondragstart="return false;" draggable="false" ng-src="{{ img }}" ng-click="nextImage()" ng-show="!loading" class="effect" />' +
-            '  <a class="nav-right" ng-click="nextImage()"><i class="fa fa-angle-right"></i></a>' +
-            '  <span class="info-text">{{ index + 1 }}/{{ images.length }} - {{ description }}</span>' +
-            '  <div class="ng-thumbnails-wrapper">' +
-            '    <div class="ng-thumbnails slide-left">' +
-            '      <div ng-repeat="i in images">' +
-            '        <img ng-src="{{ i.thumb }}" ng-class="{\'active\': index === $index}" ng-click="changeImage($index)" />' +
-            '      </div>' +
-            '    </div>' +
+            '     <img ondragstart="return false;" draggable="false" ng-src="{{ img }}" ng-click="nextImage()" ng-show="!loading" class="effect" />' +
+            '  <div class="image-wrapper" style="background-image:url({{ img }})">' +
+            '  </div>' +
+            '  <div class="ng-thumbnails-wrapper"></div>' +
+            '  <a class="close-popup" ng-click="closeGallery()"></a>' +
+            '  <div class="nav-info">' +
+            '    <a class="nav-left" ng-click="prevImage()">&nbsp;</a>' +
+            '    <span class="info-text">{{ index + 1 }}/{{ images.length }}</span>' +
+            '    <a class="nav-right" ng-click="nextImage()">&nbsp;</a>' +
             '  </div>' +
             '</div>'
         );
@@ -58,8 +50,7 @@
             restrict: 'EA',
             scope: {
                 images: '=',
-                thumbsNum: '@',
-                hideOverflow: '='
+                thumbsNum: '@'
             },
             controller: [
                 '$scope',
@@ -74,7 +65,7 @@
             },
             link: function (scope, element, attrs) {
                 setScopeValues(scope, attrs);
-
+                                                
                 if (scope.thumbsNum >= 11) {
                     scope.thumbsNum = 11;
                 }
@@ -157,15 +148,12 @@
                         showImage(scope.index);
                     }
                     scope.opened = true;
-                    if (scope.hideOverflow) {
-                        $('body').css({overflow: 'hidden'});
-                    }
 
                     $timeout(function () {
                         var calculatedWidth = calculateThumbsWidth();
                         scope.thumbs_width = calculatedWidth.width;
                         //Add 1px, otherwise some browsers move the last image into a new line
-                        var thumbnailsWidth = calculatedWidth.width + 1;
+                        var thumbnailsWidth = calculatedWidth.width+1;
                         $thumbnails.css({width: thumbnailsWidth + 'px'});
                         $thumbwrapper.css({width: calculatedWidth.visible_width + 'px'});
                         smartScroll(scope.index);
@@ -174,9 +162,6 @@
 
                 scope.closeGallery = function () {
                     scope.opened = false;
-                    if (scope.hideOverflow) {
-                        $('body').css({overflow: ''});
-                    }
                 };
 
                 $body.bind('keydown', function (event) {
@@ -222,6 +207,7 @@
                     }, 100);
                 };
 
+                scope.$parent.showMeGal = scope.openGallery;
             }
         };
     }
