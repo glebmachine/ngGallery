@@ -1,6 +1,6 @@
 { 
   "name" : "ng-gallery",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "main" : "src/js/ngGallery.js",
   "homepage": "https://github.com/jkuri/ngGallery",
   "authors": [
