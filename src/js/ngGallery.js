@@ -34,7 +34,7 @@
             '<div class="ng-gallery-content" unselectable="on" ng-show="opened" ng-swipe-left="nextImage()" ng-swipe-right="prevImage()">' +
             '  <div class="uil-ring-css" ng-show="loading"><div></div></div>' +
             '     <img ondragstart="return false;" draggable="false" ng-src="{{ img }}" ng-click="nextImage()" ng-show="!loading" class="effect" />' +
-            '  <div class="image-wrapper" style="background-image:url({{ img }})">' +
+            '  <div class="image-wrapper" ng-attr-style="background-image:url({{ img }})">' +
             '  </div>' +
             '  <div class="ng-thumbnails-wrapper"></div>' +
             '  <a class="close-popup" ng-click="closeGallery()"></a>' +
